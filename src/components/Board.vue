@@ -12,7 +12,7 @@
 		</v-row>
 
 		<v-row justify="center">
-			<h1>Player: {{ player }}</h1>
+			<h1>Move: {{ move }} | Player: {{ player }} | Won: {{ won }}</h1>
 		</v-row>
 	</v-container>
 </template>
@@ -27,25 +27,32 @@ export default {
 			[null, null, null],
 			[null, null, null]
 		],
-		player: 'X'
+		player: 'X',
+		won: false,
+		move: 0
 	}),
 
 	computed: {
-		winCheck() {
-			// check if the current play has won
-		}
+		
 	},
 
 	methods: {
 		selectItem(row, column) {
 			if (!this.boardLayout[row][column]) {
 				this.changeItem(row, column);
-				this.winCheck;
-				this.changePlayer();
+				if (this.move < 4) {
+					this.move++;
+					this.changePlayer();
+				} else {
+					if (!this.winCheck()) {
+						this.move++;
+						this.changePlayer();
+					}
+				}
 			}
 		},
-		setHover(bool) {
-			if (bool) {
+		setHover(isHover) {
+			if (isHover) {
 				event.target.classList.add('grey', 'lighten-3');
 			} else {
 				event.target.classList.remove('grey', 'lighten-3');
@@ -56,6 +63,26 @@ export default {
 		},
 		changePlayer() {
 			this.player = this.player === 'X' ? 'O' : 'X';
+		},
+		winCheck() {
+			const board = this.boardLayout;
+
+			// Check for diagonal win
+			if (((board[0][0] !== null || board[1][1] !== null || board[2][2] !== null) && (board[0][0] === board[1][1] && board[1][1] === board[2][2])) ||
+				((board[0][2] !== null || board[1][1] !== null || board[2][0] !== null) && (board[0][2] === board[1][1] && board[1][1] === board[2][0]))) {
+				this.won = true;
+				return true;
+			}
+
+			// Check if row or column has won
+			for (let i = 0; i < board.length; i++) {
+				if (((board[i][0] !== null || board[i][1] !== null || board[i][2] !== null) && (board[i][0] === board[i][1]) && (board[i][1] === board[i][2])) ||
+					((board[0][i] !== null || board[1][i] !== null || board[2][i] !== null) && (board[0][i] === board[1][i]) && (board[1][i] === board[2][i]))) {
+					this.won = true;
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

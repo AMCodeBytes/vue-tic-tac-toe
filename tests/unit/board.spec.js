@@ -55,7 +55,6 @@ describe('Board', () => {
 		expect(wrapper.vm.boardLayout).toEqual(initBoard);
 	});
 
-	// test diagonal, row, and column wins winCheck()
 	it('Check diagonal win using expected data', () => {
 		const testBoard = [
 			['X', 'O', 'O'],

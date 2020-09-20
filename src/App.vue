@@ -1,28 +1,29 @@
 <template>
-	<div id="app">
-		<router-view/>
-	</div>
+	<v-app>
+		<v-app-bar app color="primary" light>
+			<div class="d-flex align-center">
+				<v-img alt="Vue Logo" class="shrink mr-2" contain src="./assets/logo.png" transition="scale-transition" width="40" />
+				<v-toolbar-title>Tic-Tac-Toe</v-toolbar-title>
+			</div>
+		</v-app-bar>
+		<v-main>
+			<router-view></router-view>
+		</v-main>
+	</v-app>
 </template>
 
+<script>
+export default {
+	name: 'App',
+
+	data: () => ({
+		//
+	}),
+};
+</script>
+
 <style lang="scss">
-#app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
-}
-
-#nav {
-	padding: 30px;
-
-	a {
-		font-weight: bold;
-		color: #2c3e50;
-
-		&.router-link-exact-active {
-			color: #42b983;
-		}
-	}
+html {
+	overflow-y: auto!important;
 }
 </style>

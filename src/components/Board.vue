@@ -14,6 +14,9 @@
 		<v-row justify="center">
 			<h1>Move: {{ move }} | Player: {{ player }} | Won: {{ won }}</h1>
 		</v-row>
+		<v-row justify="center">
+			<v-btn class="ma-2" outlined color="teal" @click="resetBoard()"><v-icon>mdi-replay</v-icon> Reset</v-btn>
+		</v-row>
 	</v-container>
 </template>
 
@@ -83,6 +86,16 @@ export default {
 				}
 			}
 			return false;
+		},
+		resetBoard() {
+			this.boardLayout = [
+				[null, null, null],
+				[null, null, null],
+				[null, null, null]
+			];
+			this.player = 'X';
+			this.won = false;
+			this.move = 0;
 		}
 	}
 }
